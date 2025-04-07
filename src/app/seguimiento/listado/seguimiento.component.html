@@ -1,1 +1,17 @@
-<p>seguimiento works!</p>
+<section>
+    <section ngClass="filterArea">
+        Hola filter
+    </section>
+</section>
+<section ngClass="mat-elevation-z8">
+    <table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                <span>{{col.key}}</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element[col.key]}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
+    </table>
+</section>
