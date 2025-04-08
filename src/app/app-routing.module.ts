@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'seguimiento', component: SeguimientoComponent },
   { path: 'seguimiento/:id', component: SeguimientoDetallesComponent },
+  { path: '', redirectTo: 'seguimiento', pathMatch: 'full' }
 ];
 
 @NgModule({
