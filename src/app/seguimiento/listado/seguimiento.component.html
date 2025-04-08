@@ -8,7 +8,10 @@
         <!-- <mat-form-field>
             <mat-label>Filter by status</mat-label>
             <mat-select multiple #status></mat-select>
-            <mat-option>Test</mat-option>
+            <mat-option [value]="progress">{{'progress' | statusName}}</mat-option>
+            <mat-option [value]="pending">{{'pending' | statusName}}</mat-option>
+            <mat-option [value]="userPending">{{'userPending' | statusName}}</mat-option>
+            <mat-option [value]="closed">{{'closed' | statusName}}</mat-option>
         </mat-form-field> -->
         <!-- <mat-form-field>
             <mat-label>Filter by request</mat-label>
@@ -25,12 +28,16 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <section [ngSwitch]="col.type">
-                    <a *ngSwitchCase="'url'" [routerLink]="['/seguimiento/', element.id]"
-                        title="Detalles">{{element[col.key]}}
+                    <a *ngSwitchCase="'url'" [routerLink]="['/seguimiento/', element.id]" title="Detalles"
+                        ngClass="link-data" target="_blank">{{element[col.key]}}
                     </a>
-                    <span *ngSwitchCase="'date'">{{element[col.key] | date : "dd-MM-YYYY HH:mm:ss"}}</span>
-                    <span *ngSwitchCase="'description'">{{element[col.key]}}</span>
-                    <span *ngSwitchDefault>{{element[col.key]}}</span>
+                    <span *ngSwitchCase="'type'" ngClass="{{element[col.key]}}">{{element[col.key]}}</span>
+                    <span *ngSwitchCase="'date'" ngClass="date">{{element[col.key]
+                        | date : "dd-MM-YYYY HH:mm:ss"}}</span>
+                    <span *ngSwitchCase="'description'" ngClass="description-data">{{element[col.key]}}</span>
+                    <span *ngSwitchCase="'status'" ngClass="{{element[col.key]}}">{{element[col.key] |
+                        statusName}}</span>
+                    <span *ngSwitchDefault ngClass="data">{{element[col.key]}}</span>
                 </section>
             </mat-cell>
         </ng-container>

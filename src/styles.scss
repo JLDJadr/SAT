@@ -40,6 +40,73 @@ html {
   display: grid;
 }
 
+.mat-column-description {
+  min-width: 650px;
+}
+
+mat-cell.mat-mdc-cell:not(.mat-column-status, .mat-column-type),
+mat-header-cell.mat-mdc-header-cell {
+  display: grid;
+  justify-content: center;
+}
+
+.mat-column-status,
+.mat-column-type {
+  display: grid;
+}
+
+.data,
+.mat-column-description,
+.date {
+  color: adr-colors.$primary-adr;
+}
+
+.pending,
+.userPending,
+.progress,
+.closed,
+.Petició,
+.Incidència {
+  display: block;
+  border-radius: 1rem;
+  padding: 0.2rem;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.progress {
+  background-color: #1e7e34;
+}
+
+.pending {
+  background-color: #e68900;
+}
+
+.userPending {
+  background-color: #1769aa;
+}
+
+.closed {
+  background-color: #4d5158;
+}
+
+.Incidència {
+  background-color: #b35e3e;
+}
+
+.Petició {
+  background-color: #2d5f8b;
+}
+
+a {
+  color: adr-colors.$primary-adr;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 $SAT-primary: mat.define-palette(mat.$indigo-palette);
 $SAT-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 

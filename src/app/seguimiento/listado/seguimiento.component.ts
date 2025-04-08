@@ -31,8 +31,12 @@ export class SeguimientoComponent {
 
   loadRequests(): void {
     this.dataService.getAllRequests().subscribe((requests: RequestDTO[]) => {
-      this.requests = requests.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-      this.dataSource.data = this.requests
+      this.requests = requests.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      this.dataSource.data = this.requests.map((request: RequestDTO) => {
+        const requestUser: UserDTO = this.users.find((user: UserDTO) => user.id == +request.user)
+        request.user = (`${requestUser.userCode} - ${requestUser.name} ${requestUser.lastname}`)
+        return request
+      })
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
     })
