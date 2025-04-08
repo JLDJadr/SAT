@@ -29,7 +29,7 @@
             <mat-cell *matCellDef="let element">
                 <section [ngSwitch]="col.type">
                     <a *ngSwitchCase="'url'" [routerLink]="['/seguimiento/', element.id]" title="Detalles"
-                        ngClass="link-data" target="_blank">{{element[col.key]}}
+                        ngClass="link-data">{{element[col.key]}}
                     </a>
                     <span *ngSwitchCase="'type'" ngClass="{{element[col.key]}}">{{element[col.key]}}</span>
                     <span *ngSwitchCase="'date'" ngClass="date">{{element[col.key]
