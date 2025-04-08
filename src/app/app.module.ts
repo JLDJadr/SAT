@@ -1,4 +1,4 @@
-import { importProvidersFrom, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -9,14 +9,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistroComponent } from './registro/registro.component';
 import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
 import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     SeguimientoDetallesComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     MatButtonModule,
     AppRoutingModule,
@@ -33,11 +35,11 @@ import { TranslateModule } from '@ngx-translate/core';
     MatTableModule,
     MatRadioModule,
     ReactiveFormsModule,
-    MatPaginatorModule,
     MatSortModule,
     RouterModule.forRoot([]),
     HttpClientModule,
-    TranslateModule.forRoot({})
+    MatPaginatorModule,
+    MatSelectModule,
   ],
   providers: [
     provideAnimationsAsync(),

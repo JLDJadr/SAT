@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { DataService } from '../../Services/dataservice.service';
-import { UserDTO } from '../../Models/user.dto';
-import { requestColumnsBBDD, RequestDTO } from '../../Models/request.dto';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { requestColumnsBBDD, RequestDTO } from '../../Models/request.dto';
+import { UserDTO } from '../../Models/user.dto';
+import { DataService } from '../../Services/dataservice.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-seguimiento',
@@ -18,16 +19,22 @@ export class SeguimientoComponent {
   users: UserDTO[] = []
   requests: RequestDTO[] = []
 
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void { this.loadAllData() }
 
   loadAllData(): void {
-    this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { this.users = users })
+    this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { this.users = users; this.loadRequests() })
+  }
+
+  loadRequests(): void {
     this.dataService.getAllRequests().subscribe((requests: RequestDTO[]) => {
-      this.requests = requests
+      this.requests = requests.sort((a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
       this.dataSource.data = this.requests
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
     })
   }
 }

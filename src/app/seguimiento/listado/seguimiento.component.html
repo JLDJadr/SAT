@@ -1,17 +1,41 @@
-<section>
-    <section ngClass="filterArea">
-        Hola filter
+<section ngClass="header">
+    <h1>Incidencias</h1>
+    <section ngClass="button-area">
+        <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
+        <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
+    </section>
+    <section ngClass="filter-area">
+        <!-- <mat-form-field>
+            <mat-label>Filter by status</mat-label>
+            <mat-select multiple #status></mat-select>
+            <mat-option>Test</mat-option>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
+            <mat-label>Filter by request</mat-label>
+            <input matInput #input />
+        </mat-form-field> -->
     </section>
 </section>
+
 <section ngClass="mat-elevation-z8">
-    <table mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+    <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
         <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-                <span>{{col.key}}</span>
+            <mat-header-cell *matHeaderCellDef mat-sort-header [ngSwitch]="col.key">
+                <span *ngSwitchDefault><strong>{{col.label}}</strong></span>
             </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element[col.key]}}</mat-cell>
+            <mat-cell *matCellDef="let element">
+                <section [ngSwitch]="col.type">
+                    <a *ngSwitchCase="'url'" [routerLink]="['/seguimiento/', element.id]"
+                        title="Detalles">{{element[col.key]}}
+                    </a>
+                    <span *ngSwitchCase="'date'">{{element[col.key] | date : "dd-MM-YYYY HH:mm:ss"}}</span>
+                    <span *ngSwitchCase="'description'">{{element[col.key]}}</span>
+                    <span *ngSwitchDefault>{{element[col.key]}}</span>
+                </section>
+            </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
-    </table>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]='[10, 15, 20, 50]' showFirstLastButtons></mat-paginator>
 </section>
