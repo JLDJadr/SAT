@@ -18,6 +18,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
 import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
 import { MatSelectModule } from '@angular/material/select';
+import { StatusNamePipe } from './status-name.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
     RegistroComponent,
     SeguimientoComponent,
     SeguimientoDetallesComponent,
+    StatusNamePipe,
   ],
   imports: [
     BrowserAnimationsModule,
