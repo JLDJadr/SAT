@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { UserDTO } from '../Models/user.dto';
 import { RequestDTO } from '../Models/request.dto';
+import { AnswerDTO } from '../Models/answer.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class DataService {
 
   getAllRequests(): Observable<RequestDTO[]> {
     return this.http.get<RequestDTO[]>(`${this.mockUrl}request.json`).pipe(catchError(this.handleError))
+  }
+
+  getAllAnswers(): Observable<AnswerDTO[]> {
+    return this.http.get<AnswerDTO[]>(`${this.mockUrl}answer.json`).pipe(catchError(this.handleError))
   }
 
   private handleError(error: HttpErrorResponse) {

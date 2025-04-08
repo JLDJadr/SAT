@@ -1,1 +1,23 @@
-<p>detalles works!</p>
+<section>
+    <h1>Seguiment incidències / sol·licituds informàtiques</h1>
+</section>
+<section ngClass="mat-elevation-z8">
+    <mat-table *ngIf="dataSource" [dataSource]="dataSource">
+        <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+            <mat-header-cell *matHeaderCellDef>
+                <span><strong>{{col.label}}</strong></span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <section [ngSwitch]="col.type">
+                    <span *ngSwitchCase="'date'" ngClass="date">{{element[col.key]
+                        | date: "dd-MM-YYYY HH:mm:ss"}}</span>
+                    <span *ngSwitchCase="'status'" ngClass="{{element[col.key]}}">{{element[col.key] |
+                        statusName}}</span>
+                    <span *ngSwitchDefault ngClass="data">{{element[col.key]}}</span>
+                </section>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
+    </mat-table>
+</section>
