@@ -1,0 +1,14 @@
+@use "@angular/material" as mat;
+@use "../../adr-colors";
+
+form > section {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+.radio-margin {
+  margin: 0 10px;
+}

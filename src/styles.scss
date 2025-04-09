@@ -24,20 +24,27 @@ html {
 
 .header {
   display: grid;
-  grid-template-columns: 0.15fr;
+  // grid-template-columns: 1fr;
+  //Temporal para botones en local
+  grid-template-columns: 0.4fr 0.6fr;
+  padding-bottom: 10px;
+  margin: 0.5rem;
 }
 
+// Temporal
 .button-area {
   display: grid;
-  grid-template-columns: 1fr;
   grid-auto-flow: column;
   gap: 10px;
+  justify-content: end;
   button {
     min-width: 175px;
   }
 }
 .filter-area {
   display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
 }
 
 .mat-column-description {
@@ -62,7 +69,7 @@ mat-header-cell.mat-mdc-header-cell {
 }
 
 .pending,
-.userPending,
+.pendingUser,
 .progress,
 .closed,
 .Petició,
@@ -83,7 +90,7 @@ mat-header-cell.mat-mdc-header-cell {
   background-color: #e68900;
 }
 
-.userPending {
+.pendingUser {
   background-color: #1769aa;
 }
 

@@ -1,1 +1,44 @@
-<p>registro works!</p>
+<section ngClass="header">
+    <h1>Registre incidències / sol·licituds informàtiques</h1>
+    <section ngClass="button-area">
+        <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
+        <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
+    </section>
+</section>
+<section>
+    <form [formGroup]="registerForm">
+        <section>
+            <mat-form-field>
+                <mat-label>Identificador</mat-label>
+                <input matInput formControlName="user" placeholder="El seu u/exxxxx o l'adreça electrònica de l'IDI"
+                    (keyup)="checkUsers($event)">
+            </mat-form-field>
+            <section>
+                <mat-label>Reportar una:</mat-label>
+                <mat-radio-group formControlName="type" (ngModelChange)="afterRadioCheck()">
+                    <mat-radio-button value="Incidència">Incidència</mat-radio-button>
+                    <mat-radio-button value="Petició">Petició</mat-radio-button>
+                </mat-radio-group>
+            </section>
+            <mat-form-field>
+                <mat-label>Assumpte:</mat-label>
+                <input matInput placeholder="La seva incidència o petició" formControlName="title" #title>
+                <mat-hint align="start">Màxim 256 caràcters: {{title.value.length}}/256</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Descripció:</mat-label>
+                <textarea matInput formControlName="description"
+                    placeholder="Descripció de la seva incidència o petició" #description></textarea>
+                <mat-hint align="start">Màxim 4096 caràcters: {{description.value.length}}/4096</mat-hint>
+            </mat-form-field>
+            <mat-form-field style="display: none;">
+                <mat-label>status</mat-label>
+                <input matInput formControlName="status">
+            </mat-form-field>
+        </section>
+        <section style="margin-top: 10px;">
+            <button mat-raised-button color="primary" (click)="submit()"
+                [disabled]="!registerForm.valid || !userExists">Enviar</button>
+        </section>
+    </form>
+</section>
