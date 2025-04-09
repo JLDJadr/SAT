@@ -7,17 +7,24 @@
 </section>
 <section ngClass="filter-area">
     <mat-form-field>
-        <mat-label>Filter by status</mat-label>
-        <mat-select multiple (selectionChange)="selectFilter($event)">
+        <mat-label>Filtrar per text</mat-label>
+        <input matInput (keyup)="freeFilter($event)" placeholder="Ex. my free text" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Filtrar per tipus de sol·licitud</mat-label>
+        <mat-select multiple (selectionChange)="selectFilterType($event)">
+            <mat-option value="Petició">Petició</mat-option>
+            <mat-option value="Incidència">Incidència</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Filtrar per situació</mat-label>
+        <mat-select multiple (selectionChange)="selectFilterStatus($event)">
             <mat-option value="progress">{{'progress' | statusName}}</mat-option>
             <mat-option value="pending">{{'pending' | statusName}}</mat-option>
             <mat-option value="pendingUser">{{'pendingUser' | statusName}}</mat-option>
             <mat-option value="closed">{{'closed' | statusName}}</mat-option>
         </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Filter by request</mat-label>
-        <input matInput (keyup)="freeFilter($event)" placeholder="Ex. my free text" />
     </mat-form-field>
 </section>
 
@@ -46,5 +53,5 @@
         <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
     </mat-table>
-    <mat-paginator [pageSizeOptions]='[50, 100, 200, 400]' showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]='[25, 30, 50, 100]' showFirstLastButtons></mat-paginator>
 </section>

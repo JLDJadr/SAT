@@ -21,6 +21,9 @@ export class SeguimientoComponent {
 
   loading: boolean = true;
 
+  selectedStatus: string[] = []
+  selectedType: string[] = []
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private dataService: DataService) { }
@@ -34,6 +37,7 @@ export class SeguimientoComponent {
   loadRequests(): void {
     this.loading = true
     this.dataService.getAllRequests().subscribe((requests: RequestDTO[]) => {
+
       this.requests = this.transformData(requests.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
       this.dataSource.data = this.requests
 
@@ -51,9 +55,26 @@ export class SeguimientoComponent {
     })
   }
 
-  selectFilter(event: any): void {
-    const statusList: string[] = event.value
-    this.dataSource.data = statusList.length ? this.requests.filter((request: RequestDTO) => statusList.includes(request.status)) : [...this.requests]
+  selectFilterStatus(event: any): void {
+    this.selectedStatus = event.value
+    this.applyFilters();
+  }
+  selectFilterType(event: any): void {
+    this.selectedType = event.value
+    this.applyFilters()
+  }
+
+  private applyFilters(): void {
+    let filteredData = [...this.requests]
+
+    if (this.selectedStatus.length) {
+      filteredData = filteredData.filter((request: RequestDTO) => this.selectedStatus.includes(request.status))
+    }
+    if (this.selectedType.length) {
+      filteredData = filteredData.filter((request: RequestDTO) => this.selectedType.includes(request.type))
+    }
+
+    this.dataSource.data = filteredData
   }
 
   freeFilter(event: any): void {
