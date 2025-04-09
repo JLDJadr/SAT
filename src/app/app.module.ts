@@ -5,8 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +19,6 @@ import { AppComponent } from './app.component';
 import { RegistroComponent } from './registro/registro.component';
 import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
 import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
-import { MatSelectModule } from '@angular/material/select';
 import { StatusNamePipe } from './status-name.pipe';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { StatusNamePipe } from './status-name.pipe';
     HttpClientModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatInputModule
   ],
   providers: [
     provideAnimationsAsync(),

@@ -1,23 +1,24 @@
 <section ngClass="header">
-    <h1>Incidencias</h1>
-    <section ngClass="button-area">
+    <h1>Seguiment incidències / sol·licituds informàtiques</h1>
+    <!-- <section ngClass="button-area">
         <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
         <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
-    </section>
-    <section ngClass="filter-area">
-        <!-- <mat-form-field>
-            <mat-label>Filter by status</mat-label>
-            <mat-select multiple #status></mat-select>
-            <mat-option [value]="progress">{{'progress' | statusName}}</mat-option>
-            <mat-option [value]="pending">{{'pending' | statusName}}</mat-option>
-            <mat-option [value]="userPending">{{'userPending' | statusName}}</mat-option>
-            <mat-option [value]="closed">{{'closed' | statusName}}</mat-option>
-        </mat-form-field> -->
-        <!-- <mat-form-field>
-            <mat-label>Filter by request</mat-label>
-            <input matInput #input />
-        </mat-form-field> -->
-    </section>
+    </section> -->
+</section>
+<section ngClass="filter-area">
+    <mat-form-field>
+        <mat-label>Filter by status</mat-label>
+        <mat-select multiple>
+            <mat-option value="progress">{{'progress' | statusName}}</mat-option>
+            <mat-option value="pending">{{'pending' | statusName}}</mat-option>
+            <mat-option value="pendingUser">{{'pendingUser' | statusName}}</mat-option>
+            <mat-option value="closed">{{'closed' | statusName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Filter by request</mat-label>
+        <input matInput placeholder="Ex. my free text" />
+    </mat-form-field>
 </section>
 
 <section ngClass="mat-elevation-z8">
