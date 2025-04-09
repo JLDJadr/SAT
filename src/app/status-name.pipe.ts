@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StatusNamePipe implements PipeTransform {
   private statusNameMap = {
     "pending": "Pendent",
-    "userPending": "Pendent de l'usuari",
+    "pendingUser": "Pendent de l'usuari",
     "progress": "En curs",
     "closed": "Tancat"
   }

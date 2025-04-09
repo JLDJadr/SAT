@@ -20,7 +20,7 @@
         "requestId": "1",
         "created_at": "2025-04-08 11:11:53",
         "answer": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-        "status": "userPending",
+        "status": "pendingUser",
         "user": "1"
     },
     {
@@ -36,7 +36,7 @@
         "requestId": "2",
         "created_at": "2025-04-08 10:11:53",
         "answer": "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.",
-        "status": "userPending",
+        "status": "pendingUser",
         "user": "1"
     },
     {
