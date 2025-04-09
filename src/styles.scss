@@ -51,14 +51,8 @@ html {
   min-width: 650px;
 }
 
-mat-cell.mat-mdc-cell:not(.mat-column-status, .mat-column-type),
+mat-cell.mat-mdc-cell,
 mat-header-cell.mat-mdc-header-cell {
-  display: grid;
-  justify-content: center;
-}
-
-.mat-column-status,
-.mat-column-type {
   display: grid;
 }
 

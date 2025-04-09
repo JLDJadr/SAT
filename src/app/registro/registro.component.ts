@@ -42,7 +42,6 @@ export class RegistroComponent {
 
   afterRadioCheck(): void {
     const radioValue = this.registerForm.get('type')?.value
-
     this.registerForm.get('title')[radioValue ? 'enable' : 'disable']();
     this.registerForm.get('description')[radioValue ? 'enable' : 'disable']();
   }
