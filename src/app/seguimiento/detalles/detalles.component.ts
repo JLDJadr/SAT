@@ -21,6 +21,8 @@ export class SeguimientoDetallesComponent {
   users: UserDTO[] = []
   requests: RequestDTO[] = []
 
+  loading: boolean = true
+
   constructor(
     private route: ActivatedRoute,
     private dataService: DataService
@@ -38,13 +40,12 @@ export class SeguimientoDetallesComponent {
 
   loadAnswers(): void {
     this.dataService.getAllAnswers().subscribe((answers: AnswerDTO[]) => {
-      this.answers = answers.filter((answer: AnswerDTO) => answer.requestId == this.id).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-      this.dataSource.data = this.answers.filter((answer: AnswerDTO) => answer.requestId == this.id).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).map((answer: AnswerDTO) => {
+      this.dataSource.data = answers.filter((answer: AnswerDTO) => answer.requestId == this.id).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).map((answer: AnswerDTO) => {
         const answerUser: UserDTO = this.users.find((user: UserDTO) => answer.user == user.id.toString())
         answer.user = (`${answerUser.userCode} - ${answerUser.name} ${answerUser.lastname}`)
         return answer
       })
+      this.loading = false
     })
   }
-
 }

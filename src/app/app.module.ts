@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
@@ -20,7 +21,6 @@ import { RegistroComponent } from './registro/registro.component';
 import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
 import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
 import { StatusNamePipe } from './status-name.pipe';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +43,9 @@ import { StatusNamePipe } from './status-name.pipe';
     HttpClientModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule
+
   ],
   providers: [
     provideAnimationsAsync(),

@@ -1,14 +1,14 @@
 <section ngClass="header">
     <h1>Seguiment incidències / sol·licituds informàtiques</h1>
-    <!-- <section ngClass="button-area">
+    <section ngClass="button-area">
         <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
         <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
-    </section> -->
+    </section>
 </section>
 <section ngClass="filter-area">
     <mat-form-field>
         <mat-label>Filter by status</mat-label>
-        <mat-select multiple>
+        <mat-select multiple (selectionChange)="selectFilter($event)">
             <mat-option value="progress">{{'progress' | statusName}}</mat-option>
             <mat-option value="pending">{{'pending' | statusName}}</mat-option>
             <mat-option value="pendingUser">{{'pendingUser' | statusName}}</mat-option>
@@ -17,12 +17,13 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Filter by request</mat-label>
-        <input matInput placeholder="Ex. my free text" />
+        <input matInput (keyup)="freeFilter($event)" placeholder="Ex. my free text" />
     </mat-form-field>
 </section>
 
 <section ngClass="mat-elevation-z8">
-    <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <mat-table *ngIf="dataSource && !loading" [dataSource]="dataSource" matSort>
         <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
             <mat-header-cell *matHeaderCellDef mat-sort-header [ngSwitch]="col.key">
                 <span *ngSwitchDefault><strong>{{col.label}}</strong></span>
@@ -45,5 +46,5 @@
         <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
     </mat-table>
-    <mat-paginator [pageSizeOptions]='[10, 15, 20, 50]' showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]='[50, 100, 200, 400]' showFirstLastButtons></mat-paginator>
 </section>

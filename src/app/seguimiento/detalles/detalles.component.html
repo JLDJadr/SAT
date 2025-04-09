@@ -1,8 +1,9 @@
-<section>
+<section ngClass="header">
     <h1>Seguiment incidències / sol·licituds informàtiques</h1>
 </section>
 <section ngClass="mat-elevation-z8">
-    <mat-table *ngIf="dataSource" [dataSource]="dataSource">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <mat-table *ngIf="dataSource && !loading" [dataSource]="dataSource">
         <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
             <mat-header-cell *matHeaderCellDef>
                 <span><strong>{{col.label}}</strong></span>
