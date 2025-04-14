@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegistroComponent } from './registro/registro.component';
-import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
-import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
+import { RequestDetailsComponent } from './components/requests/details/request-details.component';
+import { RequestFormComponent } from './components/requests/form/request-form.component';
+import { RequestListComponent } from './components/requests/listado/request-list.component';
+
 
 const routes: Routes = [
-  { path: 'registro', component: RegistroComponent },
-  { path: 'seguimiento', component: SeguimientoComponent },
-  { path: 'seguimiento/:id', component: SeguimientoDetallesComponent },
-  { path: '', redirectTo: 'seguimiento', pathMatch: 'full' }
+  { path: 'request/form', component: RequestFormComponent },
+  { path: 'request/list', component: RequestListComponent },
+  { path: 'request/list/:id', component: RequestDetailsComponent },
+  { path: '', redirectTo: 'request/list', pathMatch: 'full' }
 ];
 
 @NgModule({

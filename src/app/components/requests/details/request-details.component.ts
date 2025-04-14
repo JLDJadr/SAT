@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DataService } from '../../Services/dataservice.service';
-import { answerColumnsBBDD, AnswerDTO } from '../../Models/answer.dto';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserDTO } from '../../Models/user.dto';
-import { RequestDTO } from '../../Models/request.dto';
+import { ActivatedRoute } from '@angular/router';
+import { answerColumnsBBDD, AnswerDTO } from '../../../models/answer.dto';
+import { RequestDTO } from '../../../models/request.dto';
+import { UserDTO } from '../../../models/user.dto';
+import { DataService } from '../../../Services/data.service';
 
 @Component({
-  selector: 'app-detalles',
-  templateUrl: './detalles.component.html',
-  styleUrl: './detalles.component.scss'
+  selector: 'app-request-details',
+  templateUrl: './request-details.component.html',
+  styleUrl: './request-details.component.scss'
 })
-export class SeguimientoDetallesComponent {
+export class RequestDetailsComponent {
   columnsDisplayed: string[] = answerColumnsBBDD.map((col) => col.key)
   columnsSchema: any = answerColumnsBBDD
   dataSource = new MatTableDataSource()

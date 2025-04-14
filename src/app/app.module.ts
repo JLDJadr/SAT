@@ -17,16 +17,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegistroComponent } from './registro/registro.component';
-import { SeguimientoDetallesComponent } from './seguimiento/detalles/detalles.component';
-import { SeguimientoComponent } from './seguimiento/listado/seguimiento.component';
+import { RequestDetailsComponent } from './components/requests/details/request-details.component';
+import { RequestFormComponent } from './components/requests/form/request-form.component';
+import { RequestListComponent } from './components/requests/listado/request-list.component';
 import { StatusNamePipe } from './status-name.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    RegistroComponent,
-    SeguimientoComponent,
-    SeguimientoDetallesComponent,
+    RequestFormComponent,
+    RequestListComponent,
+    RequestDetailsComponent,
     StatusNamePipe,
   ],
   imports: [

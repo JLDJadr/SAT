@@ -1,24 +1,24 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DataService } from '../Services/dataservice.service';
-import { UserDTO } from '../Models/user.dto';
-import { Location } from '@angular/common';
+import { DataService } from '../../../Services/data.service';
+import { UserDTO } from '../../../models/user.dto';
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.scss'
+  selector: 'app-request-form',
+  templateUrl: './request-form.component.html',
+  styleUrl: './request-form.component.scss'
 })
-export class RegistroComponent {
+export class RequestFormComponent {
 
-  registerForm: FormGroup
+  requestForm: FormGroup
 
   users: UserDTO[] = []
   selectedUser: UserDTO;
   userExists: boolean = false
 
   constructor(private dataService: DataService, private location: Location) {
-    this.registerForm = new FormGroup({
+    this.requestForm = new FormGroup({
       user: new FormControl('', [Validators.required]),
       type: new FormControl({ value: '', disabled: true }, [Validators.required]),
       title: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(256)]),
@@ -34,20 +34,20 @@ export class RegistroComponent {
   checkUsers(event: any): void {
     const userFieldValue = event.target.value.trim().toLowerCase()
     const targetUser: UserDTO = this.users.find((user: UserDTO) => user.userCode == userFieldValue || userFieldValue == user.email)
-    this.registerForm.get('type')[targetUser ? 'enable' : 'disable']();
+    this.requestForm.get('type')[targetUser ? 'enable' : 'disable']();
     this.userExists = targetUser ? true : false;
     this.selectedUser = targetUser ? targetUser : undefined;
-    this.registerForm.get('type').setValue(targetUser ? '' : undefined)
+    this.requestForm.get('type').setValue(targetUser ? '' : undefined)
   }
 
   afterRadioCheck(): void {
-    const radioValue = this.registerForm.get('type')?.value
-    this.registerForm.get('title')[radioValue ? 'enable' : 'disable']();
-    this.registerForm.get('description')[radioValue ? 'enable' : 'disable']();
+    const radioValue = this.requestForm.get('type')?.value
+    this.requestForm.get('title')[radioValue ? 'enable' : 'disable']();
+    this.requestForm.get('description')[radioValue ? 'enable' : 'disable']();
   }
 
   submit(): void {
-    this.registerForm.get('user').setValue(this.selectedUser.id)
+    this.requestForm.get('user').setValue(this.selectedUser.id)
     this.downloadJSON() // Temporal, para revisar si son correctos los datos.
     this.goBack()
   }
@@ -56,7 +56,7 @@ export class RegistroComponent {
 
   // Temporal. Revisar si los datos son correctos
   downloadJSON(): void {
-    const formData = this.registerForm.getRawValue();
+    const formData = this.requestForm.getRawValue();
     const jsonString = JSON.stringify(formData, null, 2);
 
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -64,7 +64,7 @@ export class RegistroComponent {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'registerForm.json';
+    a.download = 'requestForm.json';
     a.click();
 
     URL.revokeObjectURL(url);

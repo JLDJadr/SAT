@@ -1,17 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { requestColumnsBBDD, RequestDTO } from '../../Models/request.dto';
-import { UserDTO } from '../../Models/user.dto';
-import { DataService } from '../../Services/dataservice.service';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { requestColumnsBBDD, RequestDTO } from '../../../models/request.dto';
+import { UserDTO } from '../../../models/user.dto';
+import { DataService } from '../../../Services/data.service';
 
 @Component({
-  selector: 'app-seguimiento',
-  templateUrl: './seguimiento.component.html',
-  styleUrl: './seguimiento.component.scss'
+  selector: 'app-request-list',
+  templateUrl: './request-list.component.html',
+  styleUrl: './request-list.component.scss'
 })
-export class SeguimientoComponent {
+export class RequestListComponent {
   columnsDisplayed: string[] = requestColumnsBBDD.map((col) => col.key)
   columnsSchema: any = requestColumnsBBDD
   dataSource = new MatTableDataSource()

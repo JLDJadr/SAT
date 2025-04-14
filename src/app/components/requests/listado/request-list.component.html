@@ -1,8 +1,8 @@
 <section ngClass="header">
     <h1>Seguiment incidències / sol·licituds informàtiques</h1>
     <section ngClass="button-area">
-        <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
-        <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
+        <button mat-raised-button color="primary" [routerLink]="['/request/form']">Registro</button>
+        <button mat-raised-button color="primary" [routerLink]="['/request/list']">Seguimiento</button>
     </section>
 </section>
 <section ngClass="filter-area">
@@ -37,7 +37,7 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <section [ngSwitch]="col.type">
-                    <a *ngSwitchCase="'url'" [routerLink]="['/seguimiento/', element.id]" title="Detalles"
+                    <a *ngSwitchCase="'url'" [routerLink]="['/request/list/', element.id]" title="Detalles"
                         ngClass="link-data">{{element[col.key]}}
                     </a>
                     <span *ngSwitchCase="'type'" ngClass="{{element[col.key]}}">{{element[col.key]}}</span>

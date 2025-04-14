@@ -1,12 +1,12 @@
 <section ngClass="header">
     <h1>Registre incidències / sol·licituds informàtiques</h1>
     <section ngClass="button-area">
-        <button mat-raised-button color="primary" [routerLink]="['/registro']">Registro</button>
-        <button mat-raised-button color="primary" [routerLink]="['/seguimiento']">Seguimiento</button>
+        <button mat-raised-button color="primary" [routerLink]="['/request/form']">Registro</button>
+        <button mat-raised-button color="primary" [routerLink]="['/request/list']">Seguimiento</button>
     </section>
 </section>
 <section>
-    <form [formGroup]="registerForm">
+    <form [formGroup]="requestForm">
         <section>
             <mat-form-field>
                 <mat-label>Identificador</mat-label>
@@ -38,7 +38,7 @@
         </section>
         <section style="margin-top: 10px;">
             <button mat-raised-button color="primary" (click)="submit()"
-                [disabled]="!registerForm.valid || !userExists">Enviar</button>
+                [disabled]="!requestForm.valid || !userExists">Enviar</button>
         </section>
     </form>
 </section>
