@@ -13,6 +13,7 @@
                 <input matInput formControlName="user" placeholder="El seu u/exxxxx o l'adreça electrònica de l'IDI"
                     (keyup)="checkUsers($event)">
             </mat-form-field>
+            <p *ngIf="selectedUser">Usuari: {{selectedUser.name}} {{selectedUser.lastname}}</p>
             <section>
                 <mat-label>Reportar una:</mat-label>
                 <mat-radio-group formControlName="type" (ngModelChange)="afterRadioCheck()">
