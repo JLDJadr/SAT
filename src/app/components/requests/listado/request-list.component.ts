@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { requestColumnsBBDD, RequestDTO } from '../../../models/request.dto';
 import { UserDTO } from '../../../models/user.dto';
 import { DataService } from '../../../Services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-request-list',
@@ -16,6 +17,8 @@ export class RequestListComponent {
   columnsSchema: any = requestColumnsBBDD
   dataSource = new MatTableDataSource()
 
+  private subscriptions = new Subscription();
+
   users: UserDTO[] = []
   requests: RequestDTO[] = []
 
@@ -25,56 +28,60 @@ export class RequestListComponent {
   selectedType: string[] = []
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void { this.loadAllData() }
 
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.sort
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
+  }
+
   loadAllData(): void {
-    this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { this.users = users; this.loadRequests() })
+    const usersSub = this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { this.users = users; this.loadRequests() })
+    this.subscriptions.add(usersSub)
   }
 
   loadRequests(): void {
     this.loading = true
-    this.dataService.getAllRequests().subscribe((requests: RequestDTO[]) => {
-
+    const requestSub = this.dataService.getAllRequests().subscribe((requests: RequestDTO[]) => {
       this.requests = this.transformData(requests.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
       this.dataSource.data = this.requests
-
       this.loading = false
-      this.dataSource.paginator = this.paginator
-      this.dataSource.sort = this.sort
     })
+
+    this.subscriptions.add(requestSub)
+    
   }
 
   transformData(requests: RequestDTO[]): RequestDTO[] {
     return requests.map((request: RequestDTO) => {
       const requestUser: UserDTO = this.users.find((user: UserDTO) => user.id == +request.user)
-      request.user = (`${requestUser.userCode} - ${requestUser.name} ${requestUser.lastname}`)
+      request.user = request.user ? `${requestUser.userCode} - ${requestUser.name} ${requestUser.lastname}` : 'Usuario desconocido'
       return request
     })
   }
 
-  selectFilterStatus(event: any): void {
-    this.selectedStatus = event.value
+  selectFilter(event: any, filterType: 'status' | 'type'): void {
+    if (filterType === "status") {
+      this.selectedStatus = event.value
+    } else if (filterType === "type") {
+      this.selectedType = event.value
+    }
+
     this.applyFilters();
-  }
-  selectFilterType(event: any): void {
-    this.selectedType = event.value
-    this.applyFilters()
   }
 
   private applyFilters(): void {
-    let filteredData = [...this.requests]
-
-    if (this.selectedStatus.length) {
-      filteredData = filteredData.filter((request: RequestDTO) => this.selectedStatus.includes(request.status))
-    }
-    if (this.selectedType.length) {
-      filteredData = filteredData.filter((request: RequestDTO) => this.selectedType.includes(request.type))
-    }
-
-    this.dataSource.data = filteredData
+    this.dataSource.data = this.requests.filter((request: RequestDTO) =>
+      (!this.selectedStatus.length || this.selectedStatus.includes(request.status)) &&
+      (!this.selectedType.length || this.selectedType.includes(request.type))
+    );
   }
 
   freeFilter(event: any): void {
