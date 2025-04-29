@@ -12,14 +12,14 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Filtrar per tipus de sol·licitud</mat-label>
-        <mat-select multiple (selectionChange)="selectFilterType($event)">
+        <mat-select multiple (selectionChange)="selectFilter($event, 'type')">
             <mat-option value="Petició">Petició</mat-option>
             <mat-option value="Incidència">Incidència</mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Filtrar per situació</mat-label>
-        <mat-select multiple (selectionChange)="selectFilterStatus($event)">
+        <mat-select multiple (selectionChange)="selectFilter($event, 'status')">
             <mat-option value="progress">{{'progress' | statusName}}</mat-option>
             <mat-option value="pending">{{'pending' | statusName}}</mat-option>
             <mat-option value="pendingUser">{{'pendingUser' | statusName}}</mat-option>
@@ -30,7 +30,7 @@
 
 <section ngClass="mat-elevation-z8">
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-    <mat-table *ngIf="dataSource && !loading" [dataSource]="dataSource" matSort>
+    <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
         <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
             <mat-header-cell *matHeaderCellDef mat-sort-header [ngSwitch]="col.key">
                 <span *ngSwitchDefault><strong>{{col.label}}</strong></span>
