@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../Services/data.service';
 import { UserDTO } from '../../../models/user.dto';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-request-form',
@@ -17,7 +18,7 @@ export class RequestFormComponent {
   selectedUser: UserDTO;
   userExists: boolean = false
 
-  constructor(private dataService: DataService, private location: Location) {
+  constructor(private dataService: DataService, private location: Location, private snackBar: MatSnackBar) {
     this.requestForm = new FormGroup({
       user: new FormControl('', [Validators.required]),
       type: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -28,7 +29,11 @@ export class RequestFormComponent {
   }
 
   ngOnInit(): void {
-    this.dataService.getAllUsers().subscribe((users: UserDTO[]) => this.users = users)
+    this.dataService.getAllUsers().subscribe((users: UserDTO[]) => {
+      this.users = users
+    }, error => {
+      this.showSnackBar(error)
+    })
   }
 
   checkUsers(event: any): void {
@@ -68,6 +73,15 @@ export class RequestFormComponent {
     a.click();
 
     URL.revokeObjectURL(url);
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: ['custom-snackbar'],
+    });
   }
 
 }

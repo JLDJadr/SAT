@@ -21,4 +21,5 @@
         <mat-header-row *matHeaderRowDef="columnsDisplayed"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columnsDisplayed;"></mat-row>
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 </section>

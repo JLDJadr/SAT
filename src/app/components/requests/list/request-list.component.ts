@@ -6,6 +6,7 @@ import { requestColumnsBBDD, RequestDTO } from '../../../models/request.dto';
 import { UserDTO } from '../../../models/user.dto';
 import { DataService } from '../../../Services/data.service';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-request-list',
@@ -19,17 +20,16 @@ export class RequestListComponent {
 
   private subscriptions = new Subscription();
 
+  private filters = { status: [], type: []};
+
   users: UserDTO[] = []
   requests: RequestDTO[] = []
 
   loading: boolean = true;
 
-  selectedStatus: string[] = []
-  selectedType: string[] = []
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void { this.loadAllData() }
 
@@ -43,7 +43,12 @@ export class RequestListComponent {
   }
 
   loadAllData(): void {
-    const usersSub = this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { this.users = users; this.loadRequests() })
+    const usersSub = this.dataService.getAllUsers().subscribe((users: UserDTO[]) => { 
+      this.users = users; 
+      this.loadRequests() 
+    }, error => {
+      this.showSnackBar(error)
+    })
     this.subscriptions.add(usersSub)
   }
 
@@ -53,6 +58,9 @@ export class RequestListComponent {
       this.requests = this.transformData(requests.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()))
       this.dataSource.data = this.requests
       this.loading = false
+      this.showSnackBar('Requests received successfully!!!')
+    } , error => {
+      this.showSnackBar(error)
     })
 
     this.subscriptions.add(requestSub)
@@ -68,19 +76,16 @@ export class RequestListComponent {
   }
 
   selectFilter(event: any, filterType: 'status' | 'type'): void {
-    if (filterType === "status") {
-      this.selectedStatus = event.value
-    } else if (filterType === "type") {
-      this.selectedType = event.value
-    }
+    this.filters[filterType] = event.value
+    this.applyFilters()
 
     this.applyFilters();
   }
 
   private applyFilters(): void {
     this.dataSource.data = this.requests.filter((request: RequestDTO) =>
-      (!this.selectedStatus.length || this.selectedStatus.includes(request.status)) &&
-      (!this.selectedType.length || this.selectedType.includes(request.type))
+      (!this.filters.status.length || this.filters.status.includes(request.status)) &&
+      (!this.filters.type.length || this.filters.type.includes(request.type))
     );
   }
 
@@ -90,5 +95,14 @@ export class RequestListComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage()
     }
+  }
+
+  private showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      panelClass: ['custom-snackbar'],
+    });
   }
 }
