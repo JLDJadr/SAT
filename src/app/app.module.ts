@@ -19,8 +19,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RequestDetailsComponent } from './components/requests/details/request-details.component';
 import { RequestFormComponent } from './components/requests/form/request-form.component';
-import { RequestListComponent } from './components/requests/listado/request-list.component';
+import { RequestListComponent } from './components/requests/list/request-list.component';
 import { StatusNamePipe } from './status-name.pipe';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { StatusNamePipe } from './status-name.pipe';
     MatPaginatorModule,
     MatSelectModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
 
   ],
   providers: [

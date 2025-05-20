@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RequestDetailsComponent } from './components/requests/details/request-details.component';
 import { RequestFormComponent } from './components/requests/form/request-form.component';
-import { RequestListComponent } from './components/requests/listado/request-list.component';
+import { RequestListComponent } from './components/requests/list/request-list.component';
 
 
 const routes: Routes = [
